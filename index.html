@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>First Component</title>
+  <script src="http://fb.me/react-0.11.1.js"></script>
+  <script src="http://fb.me/JSXTransformer-0.11.1.js"></script>
+</head>
+<body>
+<script type='text/jsx'>
+  /*** @jsx React.DOM */
+  var APP = React.createClass({
+    getInitialState:function(){
+      return {
+        red: 122,
+        green: 122,
+        blue: 122 
+      }
+    },
+    update:function(e){
+      this.setState({
+        red: this.refs.red.refs.range.getDOMNode().value,
+        green: this.refs.green.refs.range.getDOMNode().value,
+        blue: this.refs.blue.refs.range.getDOMNode().value,
+      })
+    },
+    render:function(){
+      return (
+        <div>
+          <Slider ref='red' update={this.update}/>
+          <label>{this.state.red}</label>
+          <Slider ref='green' update={this.update}/>
+          <label>{this.state.green}</label>
+          <Slider ref='blue'  update={this.update}/>
+          <label>{this.state.blue}</label>
+        </div>
+        )
+    }
+  });
+
+  var Slider = React.createClass({
+    render: function(){
+      return (
+        <div>
+          <input ref='range' type='range' min='0' max='255' onChange={this.props.update} />
+        </div>
+        )
+    }
+  })
+
+  React.renderComponent(<APP/>, document.body)
+</script>
+
+</body>
+</html>
